@@ -66,4 +66,11 @@ public class RegPage {
     public boolean isWrongPasswordTextVisible(){
         return driver.findElements(wrongPasswordText).size() > 0;
     }
+    @Step("Очистить поля регистрации")
+    public void clearRegData() {
+        driver.findElement(nameField).clear();
+        driver.findElement(emailField).clear();
+        driver.findElement(passwordField).clear();
+    }
+
 }
