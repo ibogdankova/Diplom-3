@@ -9,7 +9,7 @@ public class LoginPage {
     // Локаторы элементов формы логина
     private final By emailField = By.xpath(".//input[@name='name' or @name='email']");
     private final By passwordField = By.xpath(".//input[@name='Пароль' or @name='password']");
-    private final By loginButton = By.xpath(".//button[text()='Войти']");
+    private final By loginButton = By.xpath("//div/form/button");
     private final By registerLink = By.xpath(".//a[@href='/register']");
     private final By restorePasswordLink = By.xpath(".//a[@href='/forgot-password']");
 
