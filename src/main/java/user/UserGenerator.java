@@ -4,13 +4,19 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 public class UserGenerator {
 
-    public String fakeUserName() { return RandomStringUtils.randomAlphabetic(10); }
+    public static User generateValidUser() {
+        String name = "Test" + RandomStringUtils.randomAlphabetic(5);
+        String email = "test_" + RandomStringUtils.randomAlphabetic(5).toLowerCase() + "@mail.ru";
+        String password = RandomStringUtils.randomAlphanumeric(8);
 
-    public String fakeUserEmail(){
-        return (RandomStringUtils.randomAlphabetic(10) + "@" + RandomStringUtils.randomAlphabetic(5) + ".com")
-                .toLowerCase();
+        return new User(name, email, password);
     }
 
-    public String fakeUserPassword(int Count) { return RandomStringUtils.randomAlphabetic(Count); }
+    public static User generateUserWithInvalidPassword() {
+        String name = "Test" + RandomStringUtils.randomAlphabetic(5);
+        String email = "test_" + RandomStringUtils.randomAlphabetic(5).toLowerCase() + "@mail.ru";
+        String password = RandomStringUtils.randomAlphanumeric(3); // меньше 6 символов
 
+        return new User(name, email, password);
+    }
 }

@@ -1,58 +1,39 @@
 package PageObject;
 
-import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class ProfilePage {
 
-    private WebDriver driver;
-
-    public static final String PERSONAL_ACCOUNT_URL = "https://stellarburgers.nomoreparties.site/account/profile";
-    private final By logoutButton = By.xpath(".//button[text() = 'Выход']");
-    private final By profileButton = By.xpath(".//a[text() = 'Профиль']");
-    private final By constructorButton = By.xpath(".//p[text() = 'Конструктор']");
-    private final By logoButton = By.xpath(".//header/nav/div");
+    private final WebDriver driver;
 
     public ProfilePage(WebDriver driver) {
         this.driver = driver;
     }
 
-    @Step("Открытие страницы личный кабинет")
-    public void openPage() {
-        driver.get(PERSONAL_ACCOUNT_URL);
+    // Локаторы
+    private final By profileText = By.xpath("//a[@class='Account_nav__LgAli text text_type_main-medium text_color_inactive'][1]");
+    private final By exitButton = By.xpath("//button[text()='Выход']");
+    private final By constructorButton = By.xpath("//p[text()='Конструктор']");
+    private final By logo = By.className("AppHeader_header__logo__2D0X2");
+
+    // Проверка: отображается ли текст "Профиль"
+    public boolean isProfilePageDisplayed() {
+        return driver.findElement(profileText).isDisplayed();
     }
 
-    @Step("Ожидание открытия страницы профиля")
-    public void waitForLoadPage() {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(profileButton));
+    // Клик по кнопке "Выход"
+    public void clickLogout() {
+        driver.findElement(exitButton).click();
     }
 
-    @Step("Видимость кнопки выхода")
-    public boolean isLogoutLinkVisible() {
-        return driver.findElement(logoutButton).isDisplayed();
-    }
-
-    @Step("Нажатие на кнопку Конструктор")
-    public void clickConstructButton() {
-        waitForLoadPage();
+    // Клик по кнопке "Конструктор"
+    public void clickConstructor() {
         driver.findElement(constructorButton).click();
     }
 
-    @Step("Нажатие на логотип")
+    // Клик по логотипу Stellar Burgers
     public void clickLogo() {
-        waitForLoadPage();
-        driver.findElement(logoButton).click();
+        driver.findElement(logo).click();
     }
-
-    @Step("Нажатие на кнопку Выход")
-    public void clickLogoutButton() {
-        waitForLoadPage();
-        driver.findElement(logoutButton).click();
-    }
-
 }
