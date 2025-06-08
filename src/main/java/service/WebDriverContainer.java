@@ -1,34 +1,29 @@
 package service;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.Augmenter;
 
 public class WebDriverContainer {
 
     public static WebDriver init() {
-
-        WebDriver driver;
-        String browserName = System.getProperty("browser");
-        if (browserName==null) { browserName = ""; };
-
+        String browser = System.getProperty("browser", "chrome").toLowerCase();
         ChromeOptions options = new ChromeOptions();
-        switch (browserName) {
+        options.addArguments("--remote-allow-origins=*");
+
+        switch (browser) {
             case "chrome":
-            case "":
-                options.addArguments("--remote-allow-origins=*");
-                driver = new ChromeDriver(options);
-                driver = new Augmenter().augment(driver);
-                break;
+                WebDriverManager.chromedriver().setup();
+                return new ChromeDriver(options);
+
             case "yandex":
-                driver = new ChromeDriver(options);
-                driver = new Augmenter().augment(driver);
-                break;
-            default:throw new RuntimeException("Браузер не установлен: "+browserName);
+                WebDriverManager.chromedriver().setup();
+                options.setBinary("C:\\Users\\ibogdankova\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe");
+                return new ChromeDriver(options);
+
+            default:
+                throw new RuntimeException("Неизвестный браузер: " + browser);
         }
-
-        return driver;
     }
-
 }
