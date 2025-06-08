@@ -52,7 +52,7 @@ public class ProfileTest {
     @DisplayName("Переход в личный кабинет")
     public void checkGoToProfilePage() {
         mainPage.clickPersonalCabinetButton();
-        profilePage.waitForLoadPage(); // Явное ожидание загрузки
+        profilePage.waitForLoadPage();
         assertTrue("Кнопка выхода не найдена — возможно, страница профиля не открылась",
                 profilePage.isLogoutLinkVisible());
     }
